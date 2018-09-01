@@ -88,12 +88,12 @@ class ApplicationTest {
         assertArrayEquals(except, strings);
     }
 
-    Stream<String> combination(Stream<Employee> employee, Stream<Order> order) {
-        Order[] orders = order.toArray(Order[]::new);
+    Stream<String> combination(Stream<Employee> employeeStream, Stream<Order> orderStream) {
+        Order[] orders = orderStream.toArray(Order[]::new);
 
-        return employee.map(e -> Arrays.stream(orders)
-                .filter(o -> e.getId() == o.getEmployeeId())
-                .map(o -> e.getName() + " - " + o.getProductName()))
+        return employeeStream.map(employee -> Arrays.stream(orders)
+                .filter(order -> employee.getId() == order.getEmployeeId())
+                .map(order -> employee.getName() + " - " + order.getProductName()))
                 .flatMap(stream -> stream);
     }
 }
